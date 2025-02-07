@@ -1,42 +1,50 @@
-# Actions-OpenWrt
+Options:
+    -n 200
+        Latency test threads; more threads result in faster latency testing, but devices with weak performance (such as routers) should not set it too high; (default 200, maximum 1000)
+    -t 4
+        Latency test count; number of times each IP's latency is tested; (default 4 times)
+    -dn 10
+        Download test count; number of IPs to download speed test after latency testing and sorting, starting from the lowest latency; (default 10)
+    -dt 10
+        Download test time; maximum download test time for each IP, should not be too short; (default 10 seconds)
+    -tp 443
+        Specify test port; port used for latency testing/download testing; (default port 443)
+    -url https://cf.xiu2.xyz/url
+        Specify test URL; URL used for latency testing (HTTPing)/download testing, default URL not guaranteed to be available, it is recommended to use a self-built one;
 
-[![LICENSE](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square&label=LICENSE)](https://github.com/P3TERX/Actions-OpenWrt/blob/master/LICENSE)
-![GitHub Stars](https://img.shields.io/github/stars/P3TERX/Actions-OpenWrt.svg?style=flat-square&label=Stars&logo=github)
-![GitHub Forks](https://img.shields.io/github/forks/P3TERX/Actions-OpenWrt.svg?style=flat-square&label=Forks&logo=github)
+    -httping
+        Switch test mode; switch latency test mode to HTTP protocol, using the test address specified by [-url] parameter; (default TCPing)
+        Note: HTTPing is essentially a form of network scanning behavior, so if you are running it on a server, you need to reduce concurrency (-n), otherwise some strict merchants may suspend service.
+        If you encounter a situation where the number of IPs available for HTTPing latency testing is normal at first, but decreases in subsequent tests or even becomes 0, but then recovers after a while, it may also be due to temporary restrictions triggered by the ISP or Cloudflare CDN due to network scanning behavior, it is recommended to reduce concurrency (-n) to reduce the occurrence of such situations.
+    -httping-code 200
+        Valid status codes; valid HTTP status codes returned when latency testing with HTTPing, limited to one; (default 200 301 302)
+    -cfcolo HKG,KHH,NRT,LAX,SEA,SJC,FRA,MAD
+        Match specified locations; location names are three-letter airport codes, separated by commas, case-insensitive, supports Cloudflare, AWS CloudFront, only available in HTTPing mode; (default all locations)
 
-Build OpenWrt using GitHub Actions
+    -tl 200
+        Upper limit of average latency; only output IPs with latency lower than the specified value, upper and lower limit conditions can be used together; (default 9999 ms)
+    -tll 40
+        Lower limit of average latency; only output IPs with latency higher than the specified value; (default 0 ms)
+    -tlr 0.2
+        Upper limit of loss rate; only output IPs with loss rate lower than/equal to the specified value, range 0.00~1.00, 0 filters out any IPs with loss; (default 1.00)
+    -sl 5
+        Lower limit of download speed; only output IPs with download speed higher than the specified value, will stop testing when the specified number [-dn] is reached; (default 0.00 MB/s)
 
-[Read the details in my blog (in Chinese) | 中文教程](https://p3terx.com/archives/build-openwrt-with-github-actions.html)
+    -p 10
+        Number of results to display; directly display the specified number of results after testing, when set to 0, results will not be displayed and the program will exit directly; (default 10)
+    -f ip.txt
+        IP range data file; if the path contains spaces, please enclose it in quotes; supports other CDN IP ranges; (default ip.txt)
+    -ip 1.1.1.1,2.2.2.2/24,2606:4700::/32
+        Specify IP range data; directly specify the IP range data to be tested through parameters, separated by commas; (default empty)
+    -o result.csv
+        Write result to file; if the path contains spaces, please enclose it in quotes; set to empty [-o ""] to not write to file; (default result.csv)
 
-## Usage
+    -dd
+        Disable download speed test; after disabling, the test results will be sorted by latency (default sorted by download speed); (default enabled)
+    -allip
+        Test all IPs; test each IP in the IP range (IPv4 only); (default randomly test one IP from each /24 range)
 
-- Click the [Use this template](https://github.com/P3TERX/Actions-OpenWrt/generate) button to create a new repository.
-- Generate `.config` files using [Lean's OpenWrt](https://github.com/coolsnowwolf/lede) source code. ( You can change it through environment variables in the workflow file. )
-- Push `.config` file to the GitHub repository, and the build starts automatically.Progress can be viewed on the Actions page.
-- When the build is complete, click the `Artifacts` button in the upper right corner of the Actions page to download the binaries.
-
-### Tips
-
-It may take a long time to create a `.config` file and build the OpenWrt firmware. Thus, before create repository to build your own firmware, you may check out if others have already built it which meet your needs by simply [search `Actions-Openwrt` in GitHub](https://github.com/search?q=Actions-openwrt).
-
-Add some meta info of your built firmware (such as firmware architecture and installed packages) to your repository introduction, this will save others' time.
-
-## Acknowledgments
-
-- [Microsoft](https://www.microsoft.com)
-- [Microsoft Azure](https://azure.microsoft.com)
-- [GitHub](https://github.com)
-- [GitHub Actions](https://github.com/features/actions)
-- [tmate](https://github.com/tmate-io/tmate)
-- [mxschmitt/action-tmate](https://github.com/mxschmitt/action-tmate)
-- [csexton/debugger-action](https://github.com/csexton/debugger-action)
-- [Cisco](https://www.cisco.com/)
-- [OpenWrt](https://github.com/openwrt/openwrt)
-- [Lean's OpenWrt](https://github.com/coolsnowwolf/lede)
-- [Cowtransfer](https://cowtransfer.com)
-- [WeTransfer](https://wetransfer.com/)
-- [Mikubill/transfer](https://github.com/Mikubill/transfer)
-
-## License
-
-[MIT](https://github.com/P3TERX/Actions-OpenWrt/blob/master/LICENSE) © P3TERX
+    -v
+        Print program version + check for updates
+    -h
+        Print help information
