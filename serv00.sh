@@ -14,7 +14,7 @@ then
 else
     echo "启动 cloudflared..."
     # 启动程序
-    nohup ./cloudflared tunnel --logfile ./cf.log --protocol http2 run --token eyJhIjoiM2QyNjE2NTkzM2Y0Zjk5MTc5NDRhNjIwOGUxZmRhYmIiLCJ0IjoiNTkzZjUyYjktZjk3Mi00Yzk2LWFmMzYtMjRmYTA4OWU2NWM1IiwicyI6Ill6TTJaamhrTXpJdE5tVmlOQzAwTnpNMkxXRmhNMk10TnpsaFltTmxaR1UwTVRZeSJ9 >/dev/null 2>&1 &
+    nohup ./cloudflared tunnel --logfile ./cf.log --protocol http2 run --token eyJhIjoiM2QyNjE2NTkzM2Y0Zjk5MTc5NDRhNjIwOGUxZmRhYmIiLCJ0IjoiN2JkNjY0NWQtYjdjOC00ZDcyLWE0ZDQtMGZkYTM3YWVjYWQ3IiwicyI6Ill6UmtZVE5tWXpFdE1ERTJaaTAwTVdNNExXRTJZVEl0TTJReU5HWXlaRFptWVRNNCJ9 >/dev/null 2>&1 &
 fi
 #devil www add hello.doinbgodb.serv00.net nodejs /usr/local/bin/node22
 exit
