@@ -9,7 +9,7 @@ app.use(express.json());
 app.get("/info", function (req, res) {
     // 在访问 /info 时执行保活命令
     // const commandToRun = "cd ~/serv00-play/singbox/ && bash start.sh && cd ~/.nezha-dashboard/ && bash start.sh&";
-    const commandToRun = "cd ~/serv00-play && bash serv00.sh";
+    const commandToRun = "cd ~/ && bash serv00.sh";
     exec(commandToRun, function (err, stdout, stderr) {
         if (err) {
             console.log("命令执行错误: " + err);
