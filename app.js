@@ -9,7 +9,7 @@ app.use(express.json());
 app.get("/info", function (req, res) {
     // 在访问 /info 时执行保活命令
     // const commandToRun = "cd ~/serv00-play/singbox/ && bash start.sh && cd ~/.nezha-dashboard/ && bash start.sh&";
-    const commandToRun = "cd ~/ && bash serv00.sh";
+    const commandToRun = "cd ~ && bash serv00.sh";
     exec(commandToRun, function (err, stdout, stderr) {
         if (err) {
             console.log("命令执行错误: " + err);
@@ -23,6 +23,17 @@ app.get("/info", function (req, res) {
     });
 
     res.type("html").send("<pre>你好啊</pre>");
+});
+
+app.get("/status", function (req, res) {
+    let cmdStr = "ps aux";
+    exec(cmdStr, function (err, stdout, stderr) {
+        if (err) {
+            res.type("html").send("<pre>命令行执行错误：\n" + err + "</pre>");
+        } else {
+            res.type("html").send("<pre>获取系统进程表：\n" + stdout + "</pre>");
+        }
+    });
 });
 
 // 只允许访问 /info 页面，其他页面返回 404
